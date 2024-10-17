@@ -13,12 +13,12 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   const newTodo = req.body;
-  if (newTodo.name) {
-    todos.push(newTodo);
-    res.status(201).send("Todo created");
-  } else {
-    res.status(400).send("Missing required field: 'name'")
+  if (!req.body.name) {
+    return res.status(400).send("Missing required field: 'name'");
   }
+
+  todos.push(newTodo);
+  res.status(201).send("Todo created");
 })
 
 router.delete("/:id", (req, res) => {
